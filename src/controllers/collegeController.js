@@ -92,16 +92,17 @@ const collegeDetails = async function(req, res) {
 
             // []
             return res.status(200).send({ status: true, data: arr })
-        }
+        }else{
         let arr = {
             name: collegedetail.name,
             fullName: collegedetail.fullName,
             logoLink: collegedetail.logoLink,
             interns: interns
         }
-
+    
 
         res.status(200).send({ status: true, data: arr })
+    }
     } catch (err) {
         res.status(500).send({ status: false, msg: err.message })
 
