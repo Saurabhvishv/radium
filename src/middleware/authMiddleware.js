@@ -8,11 +8,9 @@ const middleWare = async function(req, res, next) {
         if (!token) {
             return res.send({ status: false, Message: 'No token found' })
         } else {
-            //  console.log("jfb")
-            let decodedtoken = jwt.verify(token, 'Group2')
-                // console.log(decodedtoken)
+            let decodedtoken = jwt.verify(token, 'Group2') 
             if (decodedtoken) {
-                req.decodedtoken = decodedtoken; // this is for authorization later
+                req.decodedtoken = decodedtoken; 
                 next();
             } else {
                 res.status(404).send({ Message: "Not valid Token" })

@@ -1,4 +1,4 @@
-const BlogModel = require('../models/blogModel')
+const BlogModel = require('../models/blogmodel')
 const AuthorModel = require('../models/authorModel')
 
 
