@@ -51,15 +51,22 @@ const genrateShortUrl = async function (req, res) {
             return res.status(400).send({ status: false, msg: "please provide long url" })
         }
 
-        if (!(validUrl.isWebUri(requestBody.longUrl))) {
-            return res.status(400).send({ status: false, msg: "pleae provide valid url" })
+        if (!(validUrl.isWebUri(requestBody.longUrl.trim()))) {
+            return res.status(400).send({ status: false, msg: "provide valid url" })
         }
+       
 
+
+
+
+        console.log(requestBody.longUrl )
         let checkUrl = await urlModel.findOne({ longUrl: requestBody.longUrl })
 
         if (checkUrl) {
             return res.status(200).send({ status: true, msg: "This url already have shortUrl", data: checkUrl })
         }
+
+
 
         try {
             let reponse = await axios.get(`${requestBody.longUrl}`)
@@ -89,7 +96,7 @@ const genrateShortUrl = async function (req, res) {
 const getUrl = async function (req, res) {
     try {
 
-        let urlCode = req.params.urlCode.toLowerCase()
+        let urlCode = req.params.urlCode.toLowerCase().trim()
 
         let cahcedUrlData = await GET_ASYNC(`${urlCode}`)
         
