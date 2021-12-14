@@ -76,7 +76,7 @@ const genrateShortUrl = async function (req, res) {
 
         let createUrl = await urlModel.create(requestBody)
 
-
+        await SET_ASYNC(`${urlCode}`, JSON.stringify(createUrl))
         res.status(201).send({ status: true, data: createUrl })
     } catch (error) {
         res.status(500).send({ status: false, msg: error.message })
@@ -94,6 +94,10 @@ const getUrl = async function (req, res) {
         let cahcedUrlData = await GET_ASYNC(`${urlCode}`)
         
         let abc = JSON.parse(cahcedUrlData)
+         if (!cahcedUrlData){
+            return res.status(400).send({ status: false, msg: "this short url does not exist please provide valid url code " })
+         }
+
 
         if (cahcedUrlData) {
 
@@ -104,11 +108,11 @@ const getUrl = async function (req, res) {
 
         } else {
             let urlData = await urlModel.findOne({ urlCode: urlCode })
-            if (!urlData) {
-                return res.status(400).send({ status: false, msg: "this short url does not exist please provide valid url code " })
+        if (!urlData) {
+                 return res.status(400).send({ status: false, msg: "this short url does not exist please provide valid url code " })
             }
             await SET_ASYNC(`${urlCode}`, JSON.stringify(urlData))
-            // console.log("")
+          console.log("i am else part of api")
 
             res.redirect(301, `${urlData.longUrl}`);
             // res.send({data:urlData.longUrl})
