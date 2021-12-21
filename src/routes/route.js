@@ -7,11 +7,13 @@ const bookController=require('../controllers/bookController')
 const reviewController=require('../controllers/reviewController')
 const midd=require('../middleWare/middleWare')
 
+
 // user routes
 router.post('/register', userController.registerUser);
 router.post('/login', userController.loginUser)
 
 //books routes
+
 router.post('/books',midd.userAuth, bookController.createBook)
 router.get('/books',midd.userAuth,bookController.getBooks)
 router.get('/books/:bookId',midd.userAuth,bookController.getBooksById)
@@ -24,4 +26,6 @@ router.put('/books/:bookId/review/:reviewId', reviewController.updateReview)
 router.delete('/books/:bookId/review/:reviewId',reviewController.deleteReview)
 
 
+
+  router.post('/write-file-aws',bookController.awsFile)
 module.exports = router;
