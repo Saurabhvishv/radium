@@ -23,15 +23,9 @@ const isValidphone = function (value, type) {
 }
 
 const isValidPassword = function (value) {
-    if (value.length < 8) {
-        return false
-    } else if (value.length > 15) {
-        return false
-    } else {
-        return true
-    }
+    if(value.length>7 && value.length<16){return true} };
 
-}
+
 
 // mentor session
 
@@ -161,6 +155,16 @@ const loginUser = async function (req, res) {
 
     try {
         const requestBody = req.body;
+
+        if (!isValid(requestBody.email)) {
+            res.status(400).send({ status: false, message: 'email key is required' })
+            return
+        }
+        if (!isValid(requestBody.password)) {
+            res.status(400).send({ status: false, message: 'password key is required' })
+            return
+        }
+        
         if (!isValidRequestBody(requestBody)) {
             res.status(400).send({ status: false, message: 'Invalid request parameters. Please provide login details' })
             return
