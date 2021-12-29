@@ -1,14 +1,15 @@
 const express = require('express');
 var bodyParser = require('body-parser');
-var multer = require('multer') // HERE
 
 const route = require('./routes/route.js');
+var multer = require('multer')
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(multer().any()) // HERE
+app.use(multer().any()) // using multer
+
 
 
 const mongoose = require('mongoose')
@@ -20,6 +21,7 @@ mongoose.connect("mongodb+srv://users-open-to-all:hiPassword123@cluster0.uh35t.m
 
 app.use('/', route);
 
-app.listen(process.env.PORT || 3001, function() {
-	console.log('Express app running on port ' + (process.env.PORT || 3001))
+app.listen(process.env.PORT || 3000, function() {
+	console.log('Express app running on port ' + (process.env.PORT || 3000))
 });
+
