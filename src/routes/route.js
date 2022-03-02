@@ -2,8 +2,12 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/test-me', function (req, res) {
-    res.send('My first ever api!')
-});
+const formController = require('../controllers/formController');
+
+//create Form
+router.post('/createForm', formController.createForm)
+router.get('/getDetails', formController.getDetails)
+router.put('/update/:formId', formController.updateForm)
+router.delete('/delete/:formId', formController.deleteForm)
 
 module.exports = router;
